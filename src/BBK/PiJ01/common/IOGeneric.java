@@ -35,8 +35,7 @@ public class IOGeneric {
     public static void println(String str) {
         if (capturing_output)
             output += str;
-        else
-            System.out.println(str);
+        System.out.println(str);
     }
     
     public static void addDebugStringLine(String str) {
@@ -56,6 +55,7 @@ public class IOGeneric {
                 throw new BadInput("Couln't get input. IO problem?");
             }
         } else {
+            System.out.println(DEBUG_STR_QUEUE.peek());
             return DEBUG_STR_QUEUE.poll();
         }
     }

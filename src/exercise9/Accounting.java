@@ -37,6 +37,7 @@ public class Accounting {
                 System.out.println("I didn't understand that.");
                 return;
             }
+            
             if (!concept.equals("END")) {
                 System.out.print(" Amount: ");
                 try {
@@ -46,15 +47,16 @@ public class Accounting {
                 return;
             }
                 amount = Integer.parseInt(strAmount);
+                Bill newBill = new Bill(concept, amount);
+                addBillToList(newBill);
             }
-            Bill newBill = new Bill(concept, amount);
-            addBillToList(newBill);
         } while (!concept.equals("END"));
         int count = 0;
         int totalDebt = 0;
-        for (Bill current = firstBill; current != null; current = current.getNextBill()) {
+        for (Bill current = firstBill; current != null;) {
             count++;
             totalDebt += current.getAmount();
+            current = current.getNextBill();
         }
         IOGeneric.println("You have " + count + " bills unpaid (total debt: " + totalDebt + ")");
 
