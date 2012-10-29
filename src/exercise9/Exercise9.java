@@ -22,6 +22,7 @@ public class Exercise9 {
         ArrayList<Exercise> exercises = new ArrayList<Exercise>();
         
         exercises.add(new NameUtils());
+        exercises.add(new AccountingExercise());
         
         ExerciseChooser ech = new ExerciseChooser(exercises);
         ech.run();

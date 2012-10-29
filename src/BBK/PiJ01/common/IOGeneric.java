@@ -15,14 +15,48 @@ public class IOGeneric {
     /*
     *    Generic user input/output class used in many exercises.
     */
+    private static String output = "";
+    private static boolean capturing_output;
+    private static Queue<String> DEBUG_STR_QUEUE = new LinkedList<String>();
     private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     
-    public static String getString() throws BadInput{
+    public static void captureOutput() {
+        capturing_output = true;
+        output = "";
+    }
+    
+    public static String popCapturedOutput() {
+        String captured = output;
+        capturing_output = false;
+        output = "";
+        return captured;
+    }
+    
+    public static void println(String str) {
+        if (capturing_output)
+            output += str;
+        else
+            System.out.println(str);
+    }
+    
+    public static void addDebugStringLine(String str) {
+        DEBUG_STR_QUEUE.add(str);
+    }
+    
+    public static void emptyDebugStrings() {
+        DEBUG_STR_QUEUE.clear();
+    }
+    
+    public static String getString() throws BadInput {
         //return System.console().readLine();
-        try {
-            return br.readLine();
-        } catch(IOException e) {
-            throw new BadInput("Couln't get input. IO problem?");
+        if (DEBUG_STR_QUEUE.isEmpty()) {
+            try {
+                return br.readLine();
+            } catch(IOException e) {
+                throw new BadInput("Couln't get input. IO problem?");
+            }
+        } else {
+            return DEBUG_STR_QUEUE.poll();
         }
     }
     
